@@ -6,4 +6,4 @@ const comments = [
     { id: "5", userId: "2", postId: "3", body: "Not sure I understand, can you clarify?" }
 ];
 
-module.exports = comments;
+export default comments;

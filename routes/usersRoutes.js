@@ -1,19 +1,20 @@
-const express = require("express");
-const router = express.Router();
-const users = require("../data/user"); 
+import express from 'express';
+import users from '../data/users.js';
 
-// Get all users
-router.route("/")
+const router = express.Router();
+
+router
+    .route('/')
     .get((req, res) => {
         res.json(users);
     })
     .post((req, res) => {
         if (req.body.name && req.body.username && req.body.email) {
             const newUser = {
-                id: users.length + 1, // Generate a new user ID
+                id: users.length + 1,
                 name: req.body.name,
                 username: req.body.username,
-                email: req.body.email
+                email: req.body.email,
             };
             users.push(newUser);
             res.json(newUser);
@@ -22,8 +23,8 @@ router.route("/")
         }
     });
 
-// Get a specific user by ID
-router.route("/:userID")
+router
+    .route('/:userID')
     .get((req, res) => {
         const user = users.find(user => user.id == req.params.userID);
         if (user) {
@@ -36,7 +37,7 @@ router.route("/:userID")
         const userIndex = users.findIndex(user => user.id == req.params.userID);
         if (userIndex !== -1) {
             for (const key in req.body) {
-                users[userIndex][key] = req.body[key]; // Update user properties
+                users[userIndex][key] = req.body[key];
             }
             res.json(users[userIndex]);
         } else {
@@ -53,4 +54,4 @@ router.route("/:userID")
         }
     });
 
-module.exports = router;
+export default router;
